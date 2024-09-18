@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Fridge Organizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <header>
+        <nav>
+            <h1>Shared Fridge Organizer</h1>
+            <ul>
+                <li><a href="#">Fridge Contents</a></li>
+                <li><a href="#">Shopping List</a></li>
+                <li><a href="#">Budget</a></li>
+                <li><a href="#">Reminders</a></li>
+                <li><a href="#">Log Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <section id="fridge-contents">
+        <h2>What's in the Fridge</h2>
+        <div id="fridge-items">
+            <!-- Items will be dynamically added here -->
+        </div>
+    </section>
+
+    <section id="shopping-list">
+        <h2>Shopping List</h2>
+        <form id="add-to-shopping-list">
+            <input type="text" id="item-name" placeholder="Item name">
+            <input type="number" id="item-quantity" placeholder="Quantity">
+            <button type="submit">Add to Shopping List</button>
+        </form>
+        <ul id="shopping-items">
+            <!-- Shopping list items will be dynamically added here -->
+        </ul>
+    </section>
+
+    <section id="budget">
+        <h2>Monthly Budget</h2>
+        <p>Total Budget: $<span id="total-budget">0</span></p>
+        <p>Remaining Budget: $<span id="remaining-budget">0</span></p>
+        <input type="number" id="budget-input" placeholder="Enter budget">
+        <button id="set-budget">Set Budget</button>
+    </section>
+
+    <section id="reminders">
+        <h2>Expiration Reminders</h2>
+        <ul id="reminder-list">
+            <!-- Expiring items will be displayed here -->
+        </ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    list-style-type: none;
+    /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    background-color: #b2caae;
+    /* Dark background color */
+    overflow: hidden;
+}
+
+.navbar li {
+    float: right;
+    /* Align the items horizontally */
+    display: inline;
+    margin-right: 20px;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    /* Text color */
+    text-align: center;
+    padding: 14px 20px;
+    /* Padding around the links */
+    text-decoration: none;
+    /* Remove underline */
+    transition: .5s ease;
+}
+
+.navbar li a:hover {
+    background-color: #81a579;
+    /* Darker background on hover */
+    border-radius: 10px;
+}
+
+section {
+    padding: 20px;
+}
+
+#add-to-fridge input {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #b2caae;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #a4c89d;
+}
+
+#fridge-items-table th:nth-child(1),
+#fridge-items-table td:nth-child(1) {
+    width: 40ch;
+}
+
+/* Optional styling to make the table look better */
+#fridge-items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#fridge-items-table th,
+#fridge-items-table td {
+    padding: 8px;
+}
+
+#fridge-items-table th {
+    text-align: left;
+    /* Align text in headers */
+}
+
+#toggle-view {
+    margin: 10px 5px;
+}
+
+#block-view {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows items to wrap onto multiple lines */
+    gap: 20px;
+    /* Space between items */
+    padding: 10px;
+    /* Optional: Adds padding around the container */
+}
+
+.fridge-item-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    width: 425px;
+    /* Set width for the block view items */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    /* Optional: Adds shadow to the blocks */
+    transition: .5s ease;
+}
+
+.fridge-item-block:hover {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.fridge-item-image {
+    width: 425px;
+    /* Set width for the images */
+    height: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    /* Ensure image behaves as block-level element */
+}
+
+.fridge-item-details {
+    margin-top: 10px;
+    /* Space between image and text */
+}
+
+.delete-button {
+    background-color: #f44336;
+    /* Red color */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
