@@ -45,7 +45,7 @@ body {
         localStorage.setItem('googleName', profile.getName());
         localStorage.setItem('googleEmail', profile.getEmail());
 
-        window.location.href = "./homepage.html";
+        window.location.replace = "./homepage.html";
     }
 
     function onSignInFailure(error) {
