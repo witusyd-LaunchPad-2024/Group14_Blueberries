@@ -12,29 +12,10 @@
 </head>
 <body>
     <div id="iframe-container">
-        <iframe src="about:blank" width="400" height="300" sandbox="allow-scripts allow-same-origin" id="myIframe"></iframe>
+        <iframe src="about:blank" width="400" height="300" sandbox="allow-scripts" id="myIframe"></iframe>
     </div>
 
     <script>
-        // Load Google Sign-In library in the parent window
-        function onSignIn(googleUser) {
-            console.log('Sign-in successful');
-            var profile = googleUser.getBasicProfile();
-
-            // Send user data to the iframe
-            const iframe = document.getElementById('myIframe');
-            const message = {
-                type: 'signInSuccess',
-                name: profile.getName(),
-                email: profile.getEmail()
-            };
-            iframe.contentWindow.postMessage(message, '*');
-        }
-
-        function onSignInFailure(error) {
-            console.error('Sign-in error:', error);
-        }
-
         // Handle messages from the iframe
         window.addEventListener('message', (event) => {
             if (event.data.type === 'signInRequest') {
@@ -57,6 +38,33 @@
         }
 
         // Initialize the iframe with a blank page
+        window.addEventListener('load', () => {
+            const iframe = document.getElementById('myIframe');
+            iframe.contentWindow.addEventListener('message', (event) => {
+                if (event.data.type === 'signInSuccess') {
+                    loadIframeContent();
+                }
+            });
+        });
+
+        // Handle Google Sign-In in the iframe
+        function onSignIn(googleUser) {
+            console.log('Sign-in successful');
+            var profile = googleUser.getBasicProfile();
+
+            // Send user data to the parent window
+            window.parent.postMessage({
+                type: 'signInSuccess',
+                name: profile.getName(),
+                email: profile.getEmail()
+            }, '*');
+        }
+
+        function onSignInFailure(error) {
+            console.error('Sign-in error:', error);
+        }
+
+        // Load Google Sign-In library in the iframe
         window.addEventListener('load', () => {
             const iframe = document.getElementById('myIframe');
             iframe.contentWindow.addEventListener('message', (event) => {
