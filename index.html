@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FridgeMates</title>
-    <link rel="stylesheet" href="./index.css">
-    <link rel="icon" href="./images/fridge.png">
-    <meta name="google-signin-client_id"
-        content="515411470700-k53gp9tfh2f6b3bgge3ln70tjpq7jknu.apps.googleusercontent.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="515411470700-k53gp9tfh2f6b3bgge3ln70tjpq7jknu.apps.googleusercontent.com">
+<title>Login Page</title>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.login-container h1 {
+    margin-bottom: 20px;
+}
+.g-signin2 {
+    margin-top: 20px;
+}
+</style>
 </head>
-
 <body>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <header>
-        <h1>WELCOME TO FRIDGEMATE!</h1>
-    </header>
-    <section class="container">
-        <div class="option">
-            <a href="./fridge.html">
-                <img height="325" src="./images/fridge.png" alt="sad:) it's a fridge">
-            </a>
-            <h3>Our Fridge!</h3>
-        </div>
 
-        <div class="option">
-            <a href="./shopping-list.html">
-                <img height="325" src="./images/trolley.png" alt="sad:) it's a shopping list">
-            </a>
-            <h3>Our Shopping List</h3>
-        </div>
-        <div class="option">
-            <a href="./fridge.html">
-                <img height="325" src="./images/recipe.png" alt="sad:) it's a reminder">
-            </a>
-            <h3>Recipes</h3>
-        </div>
-        <div class="option">
-            <a href="./fridge.html">
-                <img height="325" src="./images/exit.png" alt="sad:) it's an exit">
-            </a>
-            <h3>Log Out</h3>
-        </div>
-    </section>
+<div class="login-container">
+<h1>Login</h1>
+<!-- Google Sign-In Button -->
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+</div>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+
+        localStorage.setItem('googleName', profile.getName());
+        localStorage.setItem('googleEmail', profile.getEmail());
+
+        window.location.href = "homepage.html";
+    }
+</script>
+    
 </body>
-
 </html>
