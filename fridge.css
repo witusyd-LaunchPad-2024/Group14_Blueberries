@@ -4,20 +4,16 @@ body {
     padding: 0;
 }
 
-/* Navigation Bar Styling */
 .navbar {
     list-style-type: none;
-    /* Remove bullet points */
     margin: 0;
     padding: 0;
-    background-color: #b2caae;
-    /* Dark background color */
+    background-color: #a0aee3;
     overflow: hidden;
 }
 
 .navbar li {
     float: right;
-    /* Align the items horizontally */
     display: inline;
     margin-right: 20px;
 }
@@ -25,18 +21,14 @@ body {
 .navbar li a {
     display: block;
     color: white;
-    /* Text color */
     text-align: center;
     padding: 14px 20px;
-    /* Padding around the links */
     text-decoration: none;
-    /* Remove underline */
     transition: .5s ease;
 }
 
 .navbar li a:hover {
-    background-color: #81a579;
-    /* Darker background on hover */
+    background-color: #7e93de;
     border-radius: 10px;
 }
 
@@ -44,12 +36,61 @@ section {
     padding: 20px;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+#budget-section {
+    margin: 20px 0;
+}
+
+#adjust-budget-btn {
+    background-color: #a0aee3;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#adjust-budget-btn:hover {
+    background-color: #7e93de;
+}
+
 #add-to-fridge input {
     margin-right: 10px;
 }
 
 button {
-    background-color: #b2caae;
+    background-color: #a0aee3;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -58,7 +99,7 @@ button {
 }
 
 button:hover {
-    background-color: #a4c89d;
+    background-color: #7e93de;
 }
 
 #fridge-items-table th:nth-child(1),
@@ -66,7 +107,6 @@ button:hover {
     width: 40ch;
 }
 
-/* Optional styling to make the table look better */
 #fridge-items-table {
     width: 100%;
     border-collapse: collapse;
@@ -79,7 +119,6 @@ button:hover {
 
 #fridge-items-table th {
     text-align: left;
-    /* Align text in headers */
 }
 
 #toggle-view {
@@ -89,11 +128,8 @@ button:hover {
 #block-view {
     display: flex;
     flex-wrap: wrap;
-    /* Allows items to wrap onto multiple lines */
     gap: 20px;
-    /* Space between items */
     padding: 10px;
-    /* Optional: Adds padding around the container */
 }
 
 .fridge-item-block {
@@ -102,9 +138,7 @@ button:hover {
     background-color: #f9f9f9;
     border-radius: 5px;
     width: 425px;
-    /* Set width for the block view items */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    /* Optional: Adds shadow to the blocks */
     transition: .5s ease;
 }
 
@@ -114,21 +148,16 @@ button:hover {
 
 .fridge-item-image {
     width: 425px;
-    /* Set width for the images */
     height: auto;
-    /* Maintain aspect ratio */
     display: block;
-    /* Ensure image behaves as block-level element */
 }
 
 .fridge-item-details {
     margin-top: 10px;
-    /* Space between image and text */
 }
 
 .delete-button {
     background-color: #f44336;
-    /* Red color */
     color: white;
     border: none;
     padding: 5px 10px;
