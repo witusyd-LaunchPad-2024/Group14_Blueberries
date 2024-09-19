@@ -20,6 +20,7 @@
         padding: 40px;
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
         text-align: center;
     }
     .login-container h1 {
@@ -31,16 +32,13 @@
 </style>
 </head>
 <body>
-    <div id="iframe-container">
         <iframe src="about:blank" width="400" height="300" sandbox="allow-scripts" id="myIframe">
             <div class="login-container">
             <h1>Login</h1>
             <!-- Google Sign-In Button -->
             <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onSignInFailure"></div>
-            
         </iframe>
         </div>
-    </div>
 
     <script>
         // Handle messages from the iframe
