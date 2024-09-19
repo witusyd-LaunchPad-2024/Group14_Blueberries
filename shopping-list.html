@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Fridge</title>
+    <title>My Shopping List</title>
     <link rel="stylesheet" href="./fridge.css">
+    <link rel="icon" href="./images/trolley.png">
 </head>
 
 <body>
     <nav>
         <ul class="navbar">
             <li><a href="logout.html">Log Out</a></li>
-            <li><a href="homepage.html">Back to Home</a></li>
+            <li><a href="index.html">Back to Home</a></li>
+            <li><a href="recipe.html">Recipe</a></li>
             <li><a href="fridge.html">My Fridge</a></li>
         </ul>
     </nav>
@@ -25,7 +27,6 @@
             <button type="submit">Add to My Shopping List</button>
         </form>
         <button id="toggle-view">Switch to Block View</button>
-        <!-- Create a table to display the fridge items -->
         <table id="fridge-items-table">
             <thead>
                 <tr>
@@ -34,13 +35,13 @@
                 </tr>
             </thead>
             <tbody id="fridge-items">
-                <!-- Items will be dynamically added here -->
+                <!-- Items will be added here -->
             </tbody>
         </table>
 
         <!-- Block view container -->
         <div id="block-view">
-            <!-- Items will be dynamically added here -->
+            <!-- Items will be added here -->
         </div>
     </section>
 
