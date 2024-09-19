@@ -1,13 +1,20 @@
 const fridgeList = JSON.parse(localStorage.getItem('fridgeList')) || [];
+let totalBudget = localStorage.getItem('totalBudget') ? parseFloat(localStorage.getItem('totalBudget')) : 0;
+let remainingBudget = totalBudget;
 
 document.addEventListener("DOMContentLoaded", () => {
     const fridgeForm = document.getElementById("add-to-fridge");
     const toggleViewButton = document.getElementById("toggle-view");
 
-    // Load saved items from localStorage
-    loadFridgeList();
+    const budgetModal = document.getElementById("budget-modal");
+    const budgetButton = document.getElementById("adjust-budget-btn");
+    const closeModal = document.querySelector(".close");
+    const saveBudgetButton = document.getElementById("save-budget");
+    const budgetInput = document.getElementById("budget-input");
 
-    // Toggle between table view and block view
+    loadFridgeList();
+    updateBudgetDisplay();
+
     toggleViewButton.addEventListener("click", () => {
         const tableView = document.getElementById("fridge-items-table");
         const blockView = document.getElementById("block-view");
@@ -23,13 +30,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Add item to fridge list
+    budgetButton.addEventListener("click", () => {
+        budgetModal.style.display = "block";
+    });
+
+    closeModal.addEventListener("click", () => {
+        budgetModal.style.display = "none";
+    });
+    window.addEventListener("click", (e) => {
+        if (e.target === budgetModal) {
+            budgetModal.style.display = "none";
+        }
+    });
+
+    saveBudgetButton.addEventListener("click", () => {
+        const budgetValue = parseFloat(budgetInput.value);
+        if (!isNaN(budgetValue)) {
+            totalBudget = budgetValue;
+            localStorage.setItem('totalBudget', totalBudget);
+            updateBudgetDisplay();
+            budgetModal.style.display = "none";
+        } else {
+            alert("Please enter a valid budget amount.");
+        }
+    });
+
     fridgeForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const itemName = document.getElementById("item-name").value;
-        const itemQuantity = document.getElementById("item-quantity").value;
+        const itemQuantity = parseInt(document.getElementById("item-quantity").value);
         const itemExpiration = document.getElementById("item-expiration").value;
-        addToFridgeList(itemName, itemQuantity, itemExpiration);
+        const itemPrice = parseFloat(document.getElementById("item-price").value);
+
+        addToFridgeList(itemName, itemQuantity, itemExpiration, itemPrice);
+        updateBudgetDisplay();
     });
 });
 
@@ -37,13 +71,15 @@ function loadFridgeList() {
     const fridgeTableBody = document.getElementById("fridge-items");
     const blockViewContainer = document.getElementById("block-view");
 
+    fridgeTableBody.innerHTML = '';
+    blockViewContainer.innerHTML = '';
+
     fridgeList.forEach(item => {
         addToView(item, fridgeTableBody, blockViewContainer);
     });
 }
 
 function addToView(item, tableBody, blockContainer) {
-    // Table view
     const row = document.createElement("tr");
     const nameCell = document.createElement("td");
     nameCell.textContent = item.name;
@@ -51,11 +87,13 @@ function addToView(item, tableBody, blockContainer) {
     quantityCell.textContent = item.quantity;
     const expirationCell = document.createElement("td");
     expirationCell.textContent = item.expiration;
+    const priceCell = document.createElement("td");
+    priceCell.textContent = item.price;
     row.appendChild(nameCell);
     row.appendChild(quantityCell);
     row.appendChild(expirationCell);
+    row.appendChild(priceCell);
 
-    // Delete button for table view
     const deleteCell = document.createElement("td");
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
@@ -66,12 +104,11 @@ function addToView(item, tableBody, blockContainer) {
 
     tableBody.appendChild(row);
 
-    // Block view
     const blockItem = document.createElement("div");
     blockItem.classList.add("fridge-item-block");
 
     const img = document.createElement("img");
-    img.src = "./images/work-in-progress.png"; // Placeholder image, change to actual product image
+    img.src = "./images/work-in-progress.png";
     img.alt = item.name;
     img.classList.add("fridge-item-image");
 
@@ -81,9 +118,9 @@ function addToView(item, tableBody, blockContainer) {
         <p><strong>${item.name}</strong></p>
         <p>Quantity: ${item.quantity}</p>
         <p>Expires on: ${item.expiration}</p>
+        <p>Price: ${item.price} $</p>
     `;
 
-    // Delete button for block view
     const blockDeleteButton = document.createElement("button");
     blockDeleteButton.textContent = "Delete";
     blockDeleteButton.classList.add("delete-button");
@@ -95,26 +132,21 @@ function addToView(item, tableBody, blockContainer) {
     blockContainer.appendChild(blockItem);
 }
 
-function addToFridgeList(name, quantity, expiration) {
+function addToFridgeList(name, quantity, expiration, price) {
     const fridgeTableBody = document.getElementById("fridge-items");
     const blockViewContainer = document.getElementById("block-view");
 
-    // Check if item already exists
     const existingItem = fridgeList.find(item => item.name === name);
 
     if (existingItem) {
-        // Update the quantity of the existing item
-        existingItem.quantity = parseInt(existingItem.quantity) + parseInt(quantity);
+        existingItem.quantity = parseInt(existingItem.quantity) + quantity;
     } else {
-        // Add new item
-        const newItem = { name, quantity, expiration };
+        const newItem = { name, quantity, expiration, price };
         fridgeList.push(newItem);
     }
 
-    // Save to localStorage
     localStorage.setItem('fridgeList', JSON.stringify(fridgeList));
 
-    // Clear and reload the views
     fridgeTableBody.innerHTML = '';
     blockViewContainer.innerHTML = '';
     loadFridgeList();
@@ -124,16 +156,24 @@ function deleteItem(name) {
     const fridgeTableBody = document.getElementById("fridge-items");
     const blockViewContainer = document.getElementById("block-view");
 
-    // Remove item from fridgeList
     const updatedFridgeList = fridgeList.filter(item => item.name !== name);
     localStorage.setItem('fridgeList', JSON.stringify(updatedFridgeList));
 
-    // Update the fridgeList in memory
     fridgeList.length = 0;
     fridgeList.push(...updatedFridgeList);
 
-    // Clear and reload the views
     fridgeTableBody.innerHTML = '';
     blockViewContainer.innerHTML = '';
     loadFridgeList();
+}
+
+function calculateTotalItemCost() {
+    return fridgeList.reduce((total, item) => total + (parseFloat(item.price) * parseInt(item.quantity)), 0);
+}
+
+function updateBudgetDisplay() {
+    const totalItemCost = calculateTotalItemCost();
+    remainingBudget = totalBudget - totalItemCost;
+    document.getElementById('total-budget-display').textContent = `$${totalBudget.toFixed(2)}`;
+    document.getElementById('remaining-budget-display').textContent = `$${remainingBudget.toFixed(2)}`;
 }
