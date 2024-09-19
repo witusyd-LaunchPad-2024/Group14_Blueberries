@@ -12,7 +12,14 @@
 <body>
     <header>
         <h1>WELCOME TO FRIDGEMATE!</h1>
+        <h2> Hi, <span id="username"> </span> </h2>
     </header>
+
+    <script>
+        document.getElementById('userName').textContent = localStorage.getItem('googleName');
+        document.getElementById('userEmail').textContent = localStorage.getItem('googleEmail');
+    </script>
+    
     <section class="container">
         <div class="option">
             <a href="./fridge.html">
